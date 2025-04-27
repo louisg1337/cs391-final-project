@@ -2,7 +2,7 @@
 
 interface ResultProps {
     isCorrect: boolean;     // if the users answer was right
-    actualValue: number;    // the actual popularity of the second song
+    actualValue: number;    // the actual population of the second country
 }
 
 export default function Result({ isCorrect, actualValue}: ResultProps) {
