@@ -3,20 +3,21 @@
 // nick chang || edward marecos
 
 import { useState } from "react";
-import { Song } from "../../../types.ts";
+import { Country } from "../../../types.ts";
 import Card from "../Card/Card.tsx";
 import Buttons from "../Buttons/Buttons.tsx";
 import Result from "../Result/Result.tsx";
 import Score from "../Score/Score.tsx";
+import { CountryList } from "../../Country/CountryList.tsx";
 
 // define props type for component
 type HigherLowerGameProps = {
-    // array of song objects from song
-    songs: Song[];
+    // array of country objects from country list
+    countries: Country[];
 };
 
-export default function HigherLowerGame({ songs }: HigherLowerGameProps) {
-    // track index of current song
+export default function HigherLowerGame({ countries }: HigherLowerGameProps) {
+    // track index of current country
     const [currentIndex, setCurrentIndex] = useState(0);
     // track if user made guess for round
     const [hasGuessed, setHasGuessed] = useState(false);
@@ -28,16 +29,16 @@ export default function HigherLowerGame({ songs }: HigherLowerGameProps) {
     //edward marecos - state to trigger showing the game over screen ▼
     const [isGameOver, setIsGameOver] = useState(false);
 
-    // select current song and next song to compare
-    const currentSong = songs[currentIndex];
-    const nextSong = songs[currentIndex + 1];
+    // select current country and next country to compare
+    const currentCountry = countries[currentIndex];
+    const nextCountry = countries[currentIndex + 1];
 
-    // if no more songs to compare
-    if (!currentSong || !nextSong) {
+    // if no more countries to compare
+    if (!currentCountry || !nextCountry) {
         return (
             // edward marecos - just styling and display score, nick wrote this function otherwise ▼
             <div className="flex min-h-screen items-center justify-center bg-gray-800 text-white text-xl">
-                Game Over! No more songs to compare. Final Score: {score}
+                Game Over! No more countries to compare. Final Score: {score}
             </div>
         );
     }
@@ -46,7 +47,7 @@ export default function HigherLowerGame({ songs }: HigherLowerGameProps) {
     function handleGuess(guess: "higher" | "lower") {
         // correct answer based on popularity
         const correctAnswer =
-            nextSong.popularity > currentSong.popularity ? "higher" : "lower";
+            nextCountry.population > currentCountry.population ? "higher" : "lower";
 
         // check if user guess matches
         const userIsCorrect = guess === correctAnswer;
@@ -63,10 +64,10 @@ export default function HigherLowerGame({ songs }: HigherLowerGameProps) {
             setIsGameOver(true);
         }
     }
-
-    // function to move to next pair of songs
+    CountryList();
+    // function to move to next pair of countries
     function handleNext() {
-        // next song in index
+        // next country in index
         setCurrentIndex((prev) => prev + 1);
         // reset guessing state
         setHasGuessed(false);
@@ -93,16 +94,16 @@ export default function HigherLowerGame({ songs }: HigherLowerGameProps) {
                 <Score label="Score" value={score} />
             </div>
 
-            {/* Container for the two song cards */}
+            {/* Container for the two country cards */}
             <div className="flex w-full max-w-6xl items-stretch justify-center gap-8">
-                {/* Left Card: Current song, always revealed */}
+                {/* Left Card: Current country, always revealed */}
                 <div className="w-1/2">
-                    <Card track={currentSong} reveal={true} />
+                    <Card country={currentCountry} reveal={true} />
                 </div>
 
-                {/* Right Card: Next song, revealed only after guessing */}
+                {/* Right Card: Next country, revealed only after guessing */}
                 <div className="w-1/2">
-                    <Card track={nextSong} reveal={hasGuessed} />
+                    <Card country={nextCountry} reveal={hasGuessed} />
                 </div>
             </div>
 
@@ -116,9 +117,9 @@ export default function HigherLowerGame({ songs }: HigherLowerGameProps) {
                     // If the user has guessed, show the result and the Next button
                     <>
                         {/* Display the result using the Result component */}
-                        <Result isCorrect={isCorrect} actualValue={nextSong.popularity} />
+                        <Result isCorrect={isCorrect} actualValue={nextCountry.population} />
 
-                        {/* Button to move to the next song pair */}
+                        {/* Button to move to the next country pair */}
                         <button
                             onClick={handleNext}
                             className="mt-4 rounded-md bg-blue-500 px-6 py-3 text-xl font-semibold text-white shadow transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"

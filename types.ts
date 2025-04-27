@@ -1,11 +1,9 @@
 // Rahil Shah 
-// This file contains the type definitions for the Spotify API responses and other related data structures.
-// The Spotify API gives us a lot of information about songs, albums, and artists so we choose to 
-// include only the most relevant information we needed for the game.
-export type Song = {
-  id: string; 
-  name: string;         // name of the song
-  artists: string[];    // array of artist names    
-  popularity: number;   // popularity score from 0 to 100    
-  albumUrl: string;     // holds the url for the album cover image   
+// type for Country so we can create a list of countries to choose from
+export type Country = {
+    name: {
+      common: string; // common name of the country
+    }; 
+    population: number; // population of the country
+    flag: string // URL of the country's flag image
 };
