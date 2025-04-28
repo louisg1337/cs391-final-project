@@ -20,7 +20,7 @@ export default function App() {
     return (
         <>
             {gameState === 0 && <StartScreen onStart={handleGameStart} />}
-            {gameState === 1 && <HigherLowerGame countries={countries} />}
+            {gameState === 1 && <HigherLowerGame countriesInput={countries} />}
         </>
     );
 }

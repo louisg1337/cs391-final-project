@@ -8,14 +8,16 @@ import Card from "../Card/Card.tsx";
 import Buttons from "../Buttons/Buttons.tsx";
 import Result from "../Result/Result.tsx";
 import Score from "../Score/Score.tsx";
+import EndScreen from "../Screens/EndScreen.tsx";
+import { CountryList } from '../Country/CountryList';
 
 // define props type for component
 type HigherLowerGameProps = {
     // array of country objects from country list
-    countries: Country[];
+    countriesInput: Country[];
 };
 
-export default function HigherLowerGame({ countries }: HigherLowerGameProps) {
+export default function HigherLowerGame({ countriesInput }: HigherLowerGameProps) {
     // track index of current country
     const [currentIndex, setCurrentIndex] = useState(0);
     // track if user made guess for round
@@ -24,6 +26,8 @@ export default function HigherLowerGame({ countries }: HigherLowerGameProps) {
     const [isCorrect, setIsCorrect] = useState(false);
     // track number of correct guesses
     const [score, setScore] = useState(0);
+    // countries to be guessed
+    const [countries, setCountries] = useState(countriesInput);
 
     //edward marecos - state to trigger showing the game over screen ▼
     const [isGameOver, setIsGameOver] = useState(false);
@@ -74,13 +78,28 @@ export default function HigherLowerGame({ countries }: HigherLowerGameProps) {
         setIsCorrect(false);
     }
 
-    // edward marecos - temp end screen▼
+    // louis grassi - function to restart game
+    async function handleRestart() {
+        // get new countries, shuffle them, and set them
+        let newCountries = await CountryList();
+        newCountries = newCountries.sort(() => Math.random() - 0.5);
+        setCountries(newCountries);
+        // reset index to 0
+        setCurrentIndex(0);
+        // reset score to 0
+        setScore(0);
+        // reset guessing state
+        setHasGuessed(false);
+        // reset correct state
+        setIsCorrect(false);
+        // set game over state to false
+        setIsGameOver(false);
+    }
+
+    // louis grassi - game over screen
     if (isGameOver) {
-        // todo
         return (
-            <div className="flex min-h-screen flex-col items-center justify-center bg-gray-700 p-4 text-white">
-                go to game over // handle reset
-            </div>
+            <EndScreen score={score} onRestart={handleRestart} />
         );
     }
 

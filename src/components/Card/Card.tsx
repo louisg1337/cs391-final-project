@@ -11,6 +11,7 @@ interface CardProps {
 export default function Card(
     { country, reveal}: CardProps
 ) {
+    const populationString = country.population.toLocaleString();
 
     return (
         // Card container styling (using Tailwind)
@@ -35,7 +36,7 @@ export default function Card(
                         <p className="text-md text-gray-400">has a population of</p>
                         <p className="my-1 text-5xl font-extrabold text-yellow-400 drop-shadow-lg md:text-6xl">
                             {/* Display the population from the country prop */}
-                            {country.population}
+                            {populationString}
                         </p>
                     </>
                 ) : (
