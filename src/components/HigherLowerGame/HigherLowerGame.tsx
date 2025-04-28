@@ -8,7 +8,6 @@ import Card from "../Card/Card.tsx";
 import Buttons from "../Buttons/Buttons.tsx";
 import Result from "../Result/Result.tsx";
 import Score from "../Score/Score.tsx";
-import { CountryList } from "../../Country/CountryList.tsx";
 
 // define props type for component
 type HigherLowerGameProps = {
@@ -64,7 +63,7 @@ export default function HigherLowerGame({ countries }: HigherLowerGameProps) {
             setIsGameOver(true);
         }
     }
-    CountryList();
+
     // function to move to next pair of countries
     function handleNext() {
         // next country in index
