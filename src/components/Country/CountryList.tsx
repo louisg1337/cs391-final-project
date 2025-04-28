@@ -2,7 +2,7 @@
 // this function fetches a list of countries from the REST Countries API
 // and returns an array of country objects with their name, population, and flag
 
-import { Country } from "../../types" // import country type from types.ts
+import { Country } from "../../../types" // import country type from types.ts
 
 export async function CountryList(): Promise<Country[]> { // main function to fetch countries
     try {
