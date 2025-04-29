@@ -11,17 +11,17 @@ export async function CountryList(): Promise<Country[]> { // main function to fe
 
         const countriesList: Country[] = data // now we map the data we got from the API to our country type
             .filter((country: any) => country.flags?.png && country.population) // get rid of any countries that don't have a flag or population
-            .map((country: any) => ({ // map the data to our country type
+            .map((country: any) => ({ // get name, population, and flag for every country
                 name: {
                     common: country.name.common,
                 },
                 population: country.population,
                 flag: country.flags.png,
             }));
-        //console.log("Fetched countries:", countriesList);
+        //console.log("Fetched countries:", countriesList); // for testing
         return countriesList; // return it if no errors
     } catch (error) {
-        console.error("Error fetching countries:", error);
+        //console.error("Error fetching countries:", error);
         return []; // otherwise return an empty array
     }
 }
