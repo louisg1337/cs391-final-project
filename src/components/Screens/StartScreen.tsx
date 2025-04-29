@@ -1,15 +1,24 @@
 // Rahil Shah
 // this the UI component for the start screen of the game
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CountryList } from "../Country/CountryList";
+import { Country } from "../../../types";
 import HigherLowerGame from "../HigherLowerGame/HigherLowerGame";
-
-const countries = await CountryList(); // fetch the list of countries
 
 export default function StartScreen() {
     const [gameState, setGameState] = useState<0 | 1>(0); // use this to maintain the state of the game
+    const [countriesList, setCountriesList] = useState<Country[]>(); // list of countries to be used in the game
     // 0 = start screen, 1 = game screen
+
+    useEffect(() => {
+        const fetchCountries = async () => {
+          const countries = await CountryList();
+          setCountriesList(countries);
+        };
+    
+        fetchCountries();
+      }, []); // empty dependency array means this runs once when the component mounts
     
     const handleGameStart = () => {
         //console.log("Game started");
@@ -18,7 +27,7 @@ export default function StartScreen() {
     
     if (gameState === 1) { // if game state is 1, show the game screen
         return (
-            <HigherLowerGame countriesInput={countries}/> // load the game screen and pass in the countries list
+            <HigherLowerGame countriesInput={countriesList ?? []}/> // load the game screen and pass in the countries list
         );
     }
 
