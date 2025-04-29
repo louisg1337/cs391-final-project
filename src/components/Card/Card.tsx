@@ -17,7 +17,7 @@ export default function Card(
         // Card container styling (using Tailwind)
         <div
             className="relative flex h-full flex-col items-center justify-center rounded-lg border border-gray-700 bg-gray-800 bg-cover bg-center p-6 text-center shadow-lg" // Added rounded corners, border, bg
-            // Use albumUrl from the track prop for the background image
+            // Use flag from the country prop for the background image
             // the rgb styling is to make a semitransparent layer over the song image - looks cleaner
             style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${country.flag})` }}
         >
